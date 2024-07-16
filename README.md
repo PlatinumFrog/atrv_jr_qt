@@ -1,1 +1,1 @@
-A Ros2 Humble package for IRobot ATRV - JR
+IRobot ATRV - JR Interface with Qt5

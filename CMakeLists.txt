@@ -8,9 +8,16 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(Qt5Core REQUIRED)
-find_package(Qt5Quick REQUIRED)
-find_package(Qt5Widgets REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(ros_image_to_qimage REQUIRED)
+find_package(Qt5 REQUIRED COMPONENTS
+Core
+Quick
+Widgets
+Multimedia
+MultimediaWidgets
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -24,20 +31,32 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-add_executable(atrv_jr_qt src/qtInterface.cpp)
-ament_target_dependencies(atrv_jr_qt rclcpp)
+add_executable(atrv_jr_qt
+  src/Main.cpp
+  include/CameraNode.hpp
+  include/Gui.hpp
+)
+
+target_include_directories(${PROJECT_NAME}
+  PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  PUBLIC $<INSTALL_INTERFACE:include>)
+
+ament_target_dependencies(atrv_jr_qt rclcpp std_msgs sensor_msgs ros_image_to_qimage)
 
 target_link_libraries(atrv_jr_qt
   Qt5::Core
   Qt5::Quick
   Qt5::Widgets
+  Qt5::Multimedia
+  Qt5::MultimediaWidgets
 )
 
 install(TARGETS
   atrv_jr_qt
-  DESTINATION lib/${PROJECT_NAME})
+  DESTINATION lib/${PROJECT_NAME}
+)
 
-install(DIRECTORY src
+install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}
 )
 

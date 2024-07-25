@@ -9,11 +9,20 @@ from launch_ros.parameter_descriptions import ParameterValue
 def generate_launch_description():
     ld = LaunchDescription()
 
-    #packagePath = FindPackageShare('atrv_jr_qt')
+    ld.add_action(
+        Node(
+            package='usb_cam',
+            executable='usb_cam_node_exe',
+            output='screen'
+        )
+    )
+
+    ld.add_action(
+        Node(
+            package='atrv_jr_qt',
+            executable='atrv_jr_qt',
+            output='screen'
+        )
+    )
     
-
-    #ld.add_action(
-        #Node()
-    #)
-
     return ld

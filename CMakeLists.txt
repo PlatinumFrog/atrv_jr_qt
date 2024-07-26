@@ -10,6 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
 find_package(ros_image_to_qimage REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS
 Core
@@ -41,7 +42,7 @@ target_include_directories(${PROJECT_NAME}
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   PUBLIC $<INSTALL_INTERFACE:include>)
 
-ament_target_dependencies(atrv_jr_qt rclcpp std_msgs sensor_msgs ros_image_to_qimage)
+ament_target_dependencies(atrv_jr_qt rclcpp std_msgs sensor_msgs nav_msgs ros_image_to_qimage)
 
 target_link_libraries(atrv_jr_qt
   Qt5::Core
